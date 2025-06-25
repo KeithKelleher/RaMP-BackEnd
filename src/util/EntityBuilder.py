@@ -209,9 +209,11 @@ class EntityBuilder(object):
         # load chemistry based on sources, resolveChemistry will attach chem props to metabolites and rampids
         # 1/2021 - currently hmdb and chebi sources
         self.loadChemstry(["hmdb", "chebi", "lipidmaps"])
-        self.resolveChemistry(["hmdb", "chebi", "lipidmaps"])      
+        self.resolveChemistry(["hmdb", "chebi", "lipidmaps"])
         
         self.metaboliteList.collapseMetsOnInchiKeyPrefix()
+
+        self.metaboliteList.scrubMetabolitesOfRefMetOrphans()
 
         # Rhea reactions # we have to handle reactions after all mergers because reactions aren't part of the metabolite class, and mergers don't work
         self.processRheaReactions()

@@ -402,7 +402,8 @@ class WikipathwaysRDF(MetabolomicsData):
             'wikidata':'WikiData',
             'cas':'CAS',
             'lipidmaps':'LIPIDMAPS',
-            'kegg.glycan':'kegg_glycan'
+            'kegg.glycan':'kegg_glycan',
+            'pharmgkb.drug': 'pharmgkb_drug'
             }
         metabolite_list = set()
         for metabolites in g.subjects(type_predicate,metabolite_object):
@@ -464,6 +465,7 @@ class WikipathwaysRDF(MetabolomicsData):
             # skip uniprot ids on metabolites... for small peptides
             # lipidbank, reactome, pid.pathway are not supported yet
             if source not in ['pid.pathway', 'reactome', 'lipidbank', 'pubchem.substance','drugbank','chembl.compound','kegg.drug', 'ttd.drug', 'inchikey', 'uniprot']:
+
                 metaboliteMapping[possible_source[source]] = [metabolites_id]
                 
                 metabolite_list.add(metabolites_id)
