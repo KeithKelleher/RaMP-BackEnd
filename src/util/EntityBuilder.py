@@ -208,9 +208,9 @@ class EntityBuilder(object):
 
         # load chemistry based on sources, resolveChemistry will attach chem props to metabolites and rampids
         # 1/2021 - currently hmdb and chebi sources
-        self.loadChemstry(["hmdb", "chebi", "lipidmaps"])
-        self.resolveChemistry(["hmdb", "chebi", "lipidmaps"])
-        
+        self.loadChemstry(["hmdb", "chebi", "lipidmaps", "pubchem"])
+        self.resolveChemistry(["hmdb", "chebi", "lipidmaps", "pubchem"])
+
         self.metaboliteList.collapseMetsOnInchiKeyPrefix()
 
         self.metaboliteList.scrubMetabolitesOfRefMetOrphans()
@@ -1543,7 +1543,7 @@ class EntityBuilder(object):
         self.addMetaboliteCommonName()
         self.addMetaboliteSynonyms()
 
-        sources = ["hmdb", "chebi", "lipidmaps"]
+        sources = ["hmdb", "chebi", "lipidmaps", "pubchem"]
         self.loadChemstry(sources)
         self.resolveChemistry(sources)
         self.metaboliteList.collapseMetsOnInchiKeyPrefix()

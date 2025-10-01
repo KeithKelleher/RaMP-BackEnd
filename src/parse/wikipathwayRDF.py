@@ -82,7 +82,7 @@ class WikipathwaysRDF(MetabolomicsData):
         - param bool writeToFile if true, write all dictionary to misc/output/wikipathwayRDF/
         '''
         self.getDatabaseFile()
-        self.getIDMapingWithPathways()
+        self.getIDMappingWithPathways()
         if writeToFile:
             self.write_myself_files('wikipathwayRDF')
             
@@ -203,7 +203,7 @@ class WikipathwaysRDF(MetabolomicsData):
                 print('---------------------------')
                 time.sleep(second)
         
-    def getIDMapingWithPathways(self): 
+    def getIDMappingWithPathways(self):
         '''
         This function parse all RDF files from source files. Then call functions
     
@@ -464,7 +464,8 @@ class WikipathwaysRDF(MetabolomicsData):
             # ttd.drug is new addition for the feb 10 2019 data
             # skip uniprot ids on metabolites... for small peptides
             # lipidbank, reactome, pid.pathway are not supported yet
-            if source not in ['pid.pathway', 'reactome', 'lipidbank', 'pubchem.substance','drugbank','chembl.compound','kegg.drug', 'ttd.drug', 'inchikey', 'uniprot']:
+            if source not in ['pid.pathway', 'reactome', 'lipidbank', 'pubchem.substance','drugbank','chembl.compound',
+                              'kegg.drug', 'ttd.drug', 'inchikey', 'uniprot', 'pharmgkb.drug']:
 
                 metaboliteMapping[possible_source[source]] = [metabolites_id]
                 
@@ -607,7 +608,7 @@ class WikipathwaysRDF(MetabolomicsData):
             id = 'chemspider:'+id
         elif prefix == 'chemspider':
             id = 'chemspider:'+id
-        elif prefix == 'kegg.compound' or prefix == 'kegg':
+        elif prefix == 'kegg.compound' or prefix == 'kegg' or prefix == 'kegg.drug':
             id = 'kegg:' +id
         elif prefix == 'cas':
             id = 'CAS:' + id
@@ -632,9 +633,28 @@ class WikipathwaysRDF(MetabolomicsData):
         elif prefix == 'kegg.glycan' or prefix == 'kegg_glycan':
             id = 'kegg_glycan:' +id
         elif prefix == 'brenda':
-            id = 'brenda:' +id  
+            id = 'brenda:' +id
+        elif prefix == 'refseq':
+            id = 'refseq:' + id
+        elif prefix == 'interpro':
+            id = 'interpro:' + id
+        elif prefix == 'drugbank':
+            id = 'drugbank:' + id
+        elif prefix == 'inchikey':
+            id = 'inchikey:' + id
+        elif prefix == 'chembl.compound':
+            id = 'chembl:' + id
+        elif prefix == 'dbsnp':
+            id = 'dbsnp:' + id
+        elif prefix == 'kegg.genes':
+            id = 'kegg:' + id
+        elif prefix == 'pfam':
+            id = 'pfam:' + id
+        elif prefix == 'pharmgkb.drug':
+            id = 'pharmgkb:' + id
         else:
-            id = 'UNKNOWN_ID_TYPE_HEYYYYYY:' + id
+            id = f'{prefix}:{id}'
+            print(f"unknown id type {prefix} for id {id}")
 
         return id
 
